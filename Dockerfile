@@ -9,15 +9,18 @@ ENV TERM=xterm\
 RUN apt -y update
 RUN apt-get -y upgrade
 
-RUN apt install apt-utils
+RUN apt install apt-utils -y
 
 # Python 3.8.10 (Ubuntu 20.04.x)
+RUN apt -y update
 RUN apt install -y python3 python3-dev python-is-python3 python3-pip
 
 # Timezone Toronto
 RUN apt-get install -yq tzdata && \
     ln -fs /usr/share/zoneinfo/$TZ /etc/localtime && \
     dpkg-reconfigure -f noninteractive tzdata
+
+RUN apt install openssh-client -y
 
 RUN apt clean autoclean
 RUN apt autoremove --yes
